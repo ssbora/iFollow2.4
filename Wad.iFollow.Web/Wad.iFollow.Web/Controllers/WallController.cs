@@ -21,7 +21,18 @@ namespace Wad.iFollow.Web.Controllers
 
             using (var entities = new ifollowdatabaseEntities4())
             {
-                currentUser = entities.users.First(u => u.id == currentUser.id);
+
+                //If there is no user, we are redirected to Login page
+                
+                try
+                {
+
+                    currentUser = entities.users.First(u => u.id == currentUser.id);
+                }
+                catch
+                {
+                    return RedirectToAction("Index", "Home");
+                }
 
                 ICollection<post> posts = currentUser.posts;
                 ICollection<image> images = currentUser.images;
@@ -83,7 +94,16 @@ namespace Wad.iFollow.Web.Controllers
 
             using(var conn = new ifollowdatabaseEntities4())
             {
-                currentUser = conn.users.First(u => u.id == currentUser.id);
+                try
+                {
+                    currentUser = conn.users.First(u => u.id == currentUser.id);
+                }
+                catch
+                {
+                    Url.Action("LogOff", "Account");
+                    //return RedirectToAction("Index", "Home");
+                }
+                
                 if (currentUser != null)
                 {
                     sm.firstName = currentUser.firstName;
@@ -107,6 +127,7 @@ namespace Wad.iFollow.Web.Controllers
         {
             long currentUserId;
             ProfileModel pm = new ProfileModel();
+
 
             if (user == "current")
             {
@@ -136,7 +157,16 @@ namespace Wad.iFollow.Web.Controllers
             user currentUser = Session["user"] as user;
             
             FollowersModel fm = new FollowersModel();
-            fm.BuildModelForUser(currentUser.id);
+            try
+            {
+                fm.BuildModelForUser(currentUser.id);
+            }
+            catch
+            {
+                Url.Action("LogOff", "Account");
+                return RedirectToAction("Index", "Home");
+            }
+           
 
             return PartialView("_Followers", fm);
         }

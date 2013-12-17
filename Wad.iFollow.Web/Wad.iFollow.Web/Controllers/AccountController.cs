@@ -79,14 +79,18 @@ namespace Wad.iFollow.Web.Controllers
 
         //
         // POST: /Account/LogOff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult LogOff(user model, string returnUrl)
-        {
-            WebSecurity.Logout();
 
-            return View(model);
-         //   return RedirectToAction("Index", "Home");
+        public ActionResult LogOff()
+        {
+            Session.Clear();
+            Session.Abandon();
+
+            //Signs out of WebSecurity and FormsAuthentication
+            //WebSecurity.Logout();
+            FormsAuthentication.SignOut();
+
+            //Redirects
+            return RedirectToAction("Index", "Home");
         }
 
         //

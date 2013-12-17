@@ -29,7 +29,8 @@ $(document).ready(function () {
     $('#rating .rateit').bind('rated reset', function (e) {
         var ri = $(this);
       
-        //if the use pressed reset, it will get value: 0 (to be compatible with the HTML range control), we could check if e.type == 'reset', and then set the value to  null .
+        //if the use pressed reset, it will get value: 0 (to be compatible with the HTML range control), we could check if e.type == 'reset',
+        //and then set the value to  null .
         var value = ri.rateit('value');
         var id = ri.data('id'); // if the product id was in some hidden field: ri.closest('li').find('input[name="productid"]').val()
  
@@ -41,7 +42,7 @@ $(document).ready(function () {
             data: {id:id, value: value }, //our data
             type: 'POST',
             success: function (data) {
-                alert("your data has been submited")
+         //       alert("your data has been submited")
  
             },
             error: function (jxhr, msg, err) {

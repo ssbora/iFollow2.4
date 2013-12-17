@@ -788,6 +788,7 @@ tr.pager td {
 #header_btn {
 
 }
+
 #headerslide {
     min-height:40px;
 }
@@ -973,3 +974,11 @@ box-shadow: none;
 	height:200px;
     width: 200px;
 }
+
+#noDecoration {
+    margin-top:5px; 
+    margin-bottom:5px; 
+    text-decoration:none; 
+    color:white
+}
+
